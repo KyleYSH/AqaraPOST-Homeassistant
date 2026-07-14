@@ -40,8 +40,9 @@ RUN \
     \
     && echo -e "StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
     \
-    && patch -d /opt/node_modules/node-red-dashboard -p1 \
+    && (patch -d /opt/node_modules/node-red-dashboard -p1 \
              -i /tmp/node-red-dashboard-show-dashboard.patch \
+        || echo "node-red-dashboard not found, skipping patch") \
     \
     && apk del --no-cache --purge .build-dependencies \
     && rm -fr \
