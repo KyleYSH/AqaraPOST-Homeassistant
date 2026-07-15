@@ -39,7 +39,7 @@ class pyAqara():
         "CN": {
             "server": "https://aiot-rpc.aqara.cn",
             "appid": "94549908487478b220992a70",
-            "appkey": "Jddz01kIORDYrBzqGYgpUXKBnIHfW8E3"
+            "appkey": "euGhPe2rcmxwculATNj45eEtnd50zp0I"
         },
         "EU": {
             "server": "https://rpc-ger.aqara.com",
