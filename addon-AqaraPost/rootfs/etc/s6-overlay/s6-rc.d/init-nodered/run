@@ -63,7 +63,7 @@ if [ "$renew_flow" = "true" ] || ! bashio::fs.file_exists '/config/flows.json'; 
 
 	FLOW_SOURCE_BASE_URL=$(bashio::config 'flow_source_base_url') || bashio::log.info "error flow_source_base_url ......."
 	if [ "$FLOW_SOURCE_BASE_URL" = "" ]; then
-	FLOW_SOURCE_BASE_URL="https://raw.githubusercontent.com/sdavides/AqaraPOST-Homeassistant/main"
+	FLOW_SOURCE_BASE_URL="https://raw.githubusercontent.com/KyleYSH/AqaraPOST-Homeassistant/main"
 	fi
 	FLOW_SOURCE_BASE_URL="${FLOW_SOURCE_BASE_URL%/}"
 	bashio::log.info "Download AqaraPost flow files from $FLOW_SOURCE_BASE_URL"
@@ -109,7 +109,7 @@ if [ "$renew_flow" = "true" ] || ! bashio::fs.file_exists '/config/flows.json'; 
 	ls "$flow_workdir"/Aqara_*.json || bashio::exit.nok "No AqaraPost flow json was downloaded"
 		
 	bashio::log.info "Starting AqaraPost-Homeassistant tokenGenerator ..."
-	wget -q https://raw.githubusercontent.com/sdavides/AqaraPOST-Homeassistant/main/generatejson/AqaraPOST-tokenGenerator.py --output-document=/tmp/AqaraPOST-tokenGenerator.py  && chmod +x /tmp/AqaraPOST-tokenGenerator.py && ( echo "$USERNAME" ; echo "$PASSWORD"; echo $(bashio::config 'serverAqara') )  | /tmp/AqaraPOST-tokenGenerator.py > /tmp/AqaraPOST-tokenGenerator.json || bashio::exit.nok "error tokenGenerator"
+	wget -q https://raw.githubusercontent.com/KyleYSH/AqaraPOST-Homeassistant/main/generatejson/AqaraPOST-tokenGenerator.py --output-document=/tmp/AqaraPOST-tokenGenerator.py  && chmod +x /tmp/AqaraPOST-tokenGenerator.py && ( echo "$USERNAME" ; echo "$PASSWORD"; echo $(bashio::config 'serverAqara') )  | /tmp/AqaraPOST-tokenGenerator.py > /tmp/AqaraPOST-tokenGenerator.json || bashio::exit.nok "error tokenGenerator"
 	cat /tmp/AqaraPOST-tokenGenerator.json | grep Username || bashio::log.info "Username Token error......."
 	cat /tmp/AqaraPOST-tokenGenerator.json | grep Area || bashio::log.info "Area Token error......."
 
