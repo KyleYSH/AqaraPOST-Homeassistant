@@ -214,7 +214,9 @@ fi
 
 # Pass in port & SSL settings
 port=$(bashio::addon.port 80)
-sed -i "s/%%PORT%%/${port:-80}/" "/opt/node_modules/node-red-dashboard/nodes/ui_base.html"
+if [ -f "/opt/node_modules/node-red-dashboard/nodes/ui_base.html" ]; then
+    sed -i "s/%%PORT%%/${port:-80}/" "/opt/node_modules/node-red-dashboard/nodes/ui_base.html"
+fi
 if ! bashio::var.has_value "${port}"; then
     bashio::log.warning
     bashio::log.warning "Direct access mode is disabled, Node-RED Dashboard"
@@ -226,9 +228,13 @@ if ! bashio::var.has_value "${port}"; then
 fi
 
 if bashio::config.true 'ssl'; then
-    sed -i "s/%%SSL%%/true/" "/opt/node_modules/node-red-dashboard/nodes/ui_base.html"
+    if [ -f "/opt/node_modules/node-red-dashboard/nodes/ui_base.html" ]; then
+        sed -i "s/%%SSL%%/true/" "/opt/node_modules/node-red-dashboard/nodes/ui_base.html"
+    fi
 else
-    sed -i "s/%%SSL%%/false/" "/opt/node_modules/node-red-dashboard/nodes/ui_base.html"
+    if [ -f "/opt/node_modules/node-red-dashboard/nodes/ui_base.html" ]; then
+        sed -i "s/%%SSL%%/false/" "/opt/node_modules/node-red-dashboard/nodes/ui_base.html"
+    fi
 fi
 
 # Ensures conflicting Node-RED packages are absent
